@@ -12,8 +12,10 @@ var port = 3000;
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/../client/dist')));
 
+app.get('/all',controller.findAll);
 app.get('/gallery/:colName',controller.find);
-app.post('/gallery/add',controller.create);
+app.post('/gallery/:colName',controller.create);
+// app.post('/gallery/add',controller.create);
 
 
 app.listen(port, () => {

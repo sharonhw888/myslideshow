@@ -22,18 +22,30 @@ mongoose
    */
   const find = (req,res) => {
     // console.log(req.params.colName)
+    // return Picture.find().select('name').exec().then((result)=>{res.json(result)});
+
+
     return Picture.find({name:req.params.colName}).exec().then((result)=>{res.json(result)});
   };
 
   const create = (req,res) => {
+    console.log(req.params)
+    if(req.params.colName==='default'){
+      return res.json('cannot change default')
+    }
     return Picture.findOneAndUpdate(
-      {name:'default'},
+      {name:req.params.colName},
       {url:req.body},
       {upsert:true}
     ).then((result)=>{res.json(result)});
   };
 
+  const findAll = (req,res) => {
+    return Picture.find().select('name').exec().then((result)=>{res.json(result)});
+  };
+
   module.exports = {
+    findAll,
     find,
     create
   };

@@ -5,8 +5,8 @@ var presetName = 'ap4g9ume';
 
 var GalleryDisplay=(props)=>{
   return(
-    <div>
-      galleryDisplay
+    <div className="pics">
+
     </div>
   )
 }

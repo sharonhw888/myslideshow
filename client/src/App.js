@@ -17,44 +17,19 @@ class App extends React.Component {
     console.log('clicked')
   }
 
-  photoHandler = (e) => {
+  fetchData(colName) {
+    colName = colName || 'default';
 
-    var files = e.target.files;
-    var photos = [];
-    for (var i = 0; i < files.length; i++) {
-      photos.push(files[i])
-    }
-    this.setState({
-      photos: photos
-    })
-  }
-
-  photoSubmitter = () => {
-    var cloudPost = [];
-    this.state.photos.forEach((item) => {
-      var formData = new FormData();
-      formData.append("file", item)
-      formData.append("upload_preset", "ap4g9ume")
-
-      cloudPost.push(axios.post("https://api.cloudinary.com/v1_1/dls2rxfqj/image/upload", formData))
-
-    })
-    Promise.all(cloudPost).then((resProm) => {
-      var url = resProm.map((item) => {
-        return item.data.url;
-      });
-      console.log(url);
-      axios.post('/gallery/add',url).then((res)=>{console.log('res from database',res)})
+    axios.get(`/gallery/${colName}`).then((res) => {
+      console.log(res.data[0].url);
+      this.setState({ url: res.data[0].url });
     });
 
   }
-
-
-  fetchData(colName) {
-    colName = colName || 'default';
-    axios.get(`/gallery/${colName}`).then((res) => { console.log(res); this.setState({ url: res.url }) })
-  }
   componentDidMount() {
+    axios.get('/all').then((res) => {
+      this.setState({ all: res.data.map((item) => { return item.name }) });
+    })
     this.fetchData();
   }
 
@@ -65,9 +40,8 @@ class App extends React.Component {
           Hello <b>{this.state.userName}</b>. Nice to see you here.
         </h1>
 
-        <span> Photos <input onChange={this.photoHandler} type='file' multiple /><button onClick={this.photoSubmitter}>Confirm Pictures</button></span>
-        <AddCollection />
-        <GalleryDisplay />
+        <AddCollection allCol={this.state.all} />
+        <GalleryDisplay allURL={this.state.url}/>
       </>
     );
   }
