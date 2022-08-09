@@ -6,6 +6,7 @@ var presetName = 'ap4g9ume';
 var AddCollection=(props)=>{
   return(
     <div>
+      addCollection
     </div>
   )
 }
