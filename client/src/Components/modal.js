@@ -10,16 +10,29 @@ var Modal = (props) => {
   var [previewPhoto, setPreviewPhoto] = React.useState();
   var [newurl, setNewurl] = React.useState([]);
 
+
+  var cancelPhoto = (e) => {
+    var ind = e.target.attributes.data.value.slice(1);
+    if (e.target.attributes.data.value[0] === 'p') {
+      photo.splice(ind, 1);
+      preview();
+    }else if (e.target.attributes.data.value[0] === 'u') {
+      newurl.splice(ind, 1);
+      preview();
+    }
+
+  }
+
   var preview = () => {
     setPreviewPhoto(
       <>
-        {photo.map((file) => {
+        {photo.map((file, index) => {
           var source = URL.createObjectURL(file);
-          return <img className='prePhoto' src={source}></img>
+          return <img data={'p' + index} className='prePhoto' src={source} onClick={cancelPhoto}></img>
         })}
         <></>
-        {newurl.map((item) => {
-          return <img className='prePhoto' src={item}></img>
+        {newurl.map((item, index) => {
+          return <img data={'u' + index} className='prePhoto' src={item} onClick={cancelPhoto}></img>
         })}
       </>
     )
@@ -77,6 +90,7 @@ var Modal = (props) => {
             {/* <button onClick={preview}>Preview Pictures</button> */}
             {(photo.length || newurl.length) ? <button onClick={preview}>Preview Pictures</button> : <></>}
           </div>
+          {((photo.length || newurl.length)&&previewPhoto) ?<p>click on image to delete</p>:<></>}
           {previewPhoto}
 
           {/* {photo && photo.map((item) => { return <img src={item} /> })} */}
