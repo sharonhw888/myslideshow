@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import axios from 'axios';
 import Progress from './progress.js';
 var cloudName = 'dls2rxfqj';
@@ -7,30 +8,28 @@ var presetName = 'ap4g9ume';
 var GalleryDisplay = (props) => {
 
   const [currentSlide, setCurrentSlide] = React.useState(0);
-  var [done,setDone]=React.useState(0);
+  var [done, setDone] = React.useState(0);
+  var [autoScroll, setAutoScroll] = React.useState(false);
+  // const autoScroll = true;
+  let intervalTime = props.dt / 10;
 
-  const autoScroll = true;
   let slideInterval;
-  let intervalTime = props.dt/10;
-
-  var num=0;
+  var num = 0;
 
   const nextSlide = () => {
-    num+=10;
-    setDone(num)
-    if(num===100){
+    num += 10;
+    if (num === 100) {
+      clearInterval(slideInterval);
       setCurrentSlide(currentSlide === props.allURL.length - 1 ? 0 : currentSlide + 1);
-      clearInterval(slideInterval)
     }
-    // progressDone(done)
+    setDone(num);
   };
   const preSlide = () => {
-    setCurrentSlide(currentSlide === 0 ? props.allURL.length - 1 : currentSlide - 1)
+    setCurrentSlide(currentSlide === 0 ? props.allURL.length - 1 : currentSlide - 1);
   };
 
-
   var auto = () => {
-    num=0;
+    // num = 0;
     slideInterval = setInterval(nextSlide, intervalTime);
   }
 
@@ -38,16 +37,21 @@ var GalleryDisplay = (props) => {
   //   setCurrentSlide(0)
   // }, []);
   React.useEffect(() => {
+    console.log('currentslide chnage')
     if (autoScroll) {
+      setDone(0)
       auto();
     }
   }, [currentSlide])
 
-  // React.useEffect(() => {
-  //   setInterval(()=>{
-  //     setDone(done+10)
-  //   },1000)
-  // }, [currentSlide])
+  React.useEffect(() => {
+    console.log(slideInterval)
+    clearInterval(slideInterval)
+    if(autoScroll){
+      auto();
+    }
+  }, [autoScroll])
+
 
   return (
     <div className="slider">
@@ -55,14 +59,16 @@ var GalleryDisplay = (props) => {
       {props.allURL && props.allURL.map((item, index) => {
         return (
           <div className={index === currentSlide ? 'slide current' : 'slide'} key={index}>
-            {index === currentSlide && (
-              <img src={item} />
-            )}
+            {index === currentSlide &&
+              autoScroll?<img src={item} />:<div className="empty">pause don't peek</div>
+              // <img src={item} />
+            }
           </div>
         )
       })}
-      <div onClick={nextSlide}>&#8594;</div>
-      <Progress done={done}/>
+      <div onClick={() => { setCurrentSlide(currentSlide === props.allURL.length - 1 ? 0 : currentSlide + 1); }}>&#8594;</div>
+      <button onClick={() => { setAutoScroll(!autoScroll) }}>{autoScroll ? "⏸️":"▶️" }</button>
+      <Progress done={done} />
 
     </div>
   )

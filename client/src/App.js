@@ -9,13 +9,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       userName: 'Jane',
-      dt:10000,
     }
     this.fetchData = this.fetchData.bind(this)
-  }
-
-  handleSubmit = (e) => {
-    console.log('clicked')
   }
 
   fetchData(colName) {
@@ -25,12 +20,12 @@ class App extends React.Component {
       console.log(res.data[0].url);
       this.setState({ url: res.data[0].url });
     });
-
-  }
-  componentDidMount() {
     axios.get('/all').then((res) => {
       this.setState({ all: res.data.map((item) => { return item.name }) });
     })
+  }
+
+  componentDidMount() {
     this.fetchData();
   }
 
@@ -42,8 +37,10 @@ class App extends React.Component {
         </h1>
 
         <SelectCollection allCol={this.state.all} select={this.fetchData} />
-        <input value={this.state.dt} placeholder="default time interval is 10 sec" onChange={(e)=>{this.setState({dt:e.target.value})}}></input>
-        {this.state.url && <GalleryDisplay allURL={this.state.url} dt={this.state.dt}/>}
+        <div> Time interval :
+          <input value={this.state.dt} placeholder="default time interval is 10 sec" onChange={(e)=>{this.setState({dt:e.target.value})}}></input> in sec
+        </div>
+        {this.state.url && <GalleryDisplay allURL={this.state.url} dt={this.state.dt*1000||10000}/>}
 
       </>
     );

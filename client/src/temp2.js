@@ -168,3 +168,9 @@ body{
 #radio3:checked ~ .navigation-auto .auto-btn3{
   background: pink;
 }
+
+
+
+
+
+
