@@ -4,16 +4,16 @@ var cloudName = 'dls2rxfqj';
 var presetName = 'ap4g9ume';
 import Modal from './modal.js';
 
-const AddCollection = (props) => {
+const SelectCollection = (props) => {
 
   var [selected, setSelect] = React.useState('default');
   var [show, setShow] = React.useState(false);
   var handleChange = (e) => {
-    console.log(e.target.value)
     if (e.target.value === 'create') {
       setShow(true)
     }
     setSelect(e.target.value)
+    props.select(e.target.value)
   };
 
   return (
@@ -34,4 +34,4 @@ const AddCollection = (props) => {
   )
 }
 
-export default AddCollection
+export default SelectCollection

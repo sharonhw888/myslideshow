@@ -41,7 +41,7 @@ mongoose
   };
 
   const findAll = (req,res) => {
-    return Picture.find().select('name').exec().then((result)=>{res.json(result)});
+    return Picture.find().exec().then((result)=>{res.json(result)});
   };
 
   module.exports = {
