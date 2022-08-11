@@ -16,7 +16,7 @@ app.get('/all',controller.findAll);
 app.get('/gallery/:colName',controller.find);
 app.post('/gallery/:colName',controller.create);
 // app.post('/gallery/add',controller.create);
-
+app.delete('/gallery/:colName',controller.remove);
 
 app.listen(port, () => {
   console.log(`server is listening on port ${port}`);

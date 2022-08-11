@@ -16,7 +16,7 @@ var Modal = (props) => {
     if (e.target.attributes.data.value[0] === 'p') {
       photo.splice(ind, 1);
       preview();
-    }else if (e.target.attributes.data.value[0] === 'u') {
+    } else if (e.target.attributes.data.value[0] === 'u') {
       newurl.splice(ind, 1);
       preview();
     }
@@ -55,7 +55,7 @@ var Modal = (props) => {
         return item.data.url;
       })
       link = link.concat(newurl);
-      console.log(link)
+      console.log(name)
       axios.post(`/gallery/${name}`, link).then((res) => { console.log('res from database', res) })
     }).then(() => {
       console.log(e.target.value)
@@ -71,27 +71,35 @@ var Modal = (props) => {
         </div>
         <div className="title">Create a collection</div>
         <div className="body">
-          <div>Name:
-            <input value={name} placeholder="Example: flowers" onChange={(e) => { setName(e.target.value) }} required></input>
+          <div className="colName">Name:<br />
+            <input value={name} placeholder="Collection name" onChange={(e) => { setName(e.target.value) }} required></input>
           </div>
+          <div className="addPhoto">
+            <div class="addTitle">Photos: click on "add" to add picture; click on "preview" to preview before submission</div>
+            <div className="addOn">
+              <div className="addText">upload picture</div>
+              <input className="addImg" type='file' multiple />
+              <button className="addButton" onClick={(e) => {
+                setPhoto(photo.concat(Object.values(e.target.previousElementSibling.files)))
+              }}>add</button>
+            </div>
 
-          {/* <span> Photos: <input onChange={(e)=>{console.log(e.target.files);setPhoto(Object.values(e.target.files))}} type='file' multiple /><button onClick={photoSubmitter}>Confirm Pictures</button></span> */}
-
-          <div> Photos:<br />
-            upload picture<input type='file' multiple /><button onClick={(e) => {
-              setPhoto(photo.concat(Object.values(e.target.previousElementSibling.files)))
-            }}>add</button><br />
-
-            or paste url <input placeholder="url ..." /> <button onClick={(e) => {
-              setNewurl(newurl.concat(e.target.previousElementSibling.value))
-              e.target.previousElementSibling.value = '';
-            }}>add</button><br />
+            <div className="addOn">
+              <div className="addText">or paste url</div>
+              <input className="addImg" placeholder="url ..." />
+              <button className="addButton" onClick={(e) => {
+                setNewurl(newurl.concat(e.target.previousElementSibling.value))
+                e.target.previousElementSibling.value = '';
+              }}>add</button><br />
+            </div>
 
             {/* <button onClick={preview}>Preview Pictures</button> */}
             {(photo.length || newurl.length) ? <button onClick={preview}>Preview Pictures</button> : <></>}
           </div>
-          {((photo.length || newurl.length)&&previewPhoto) ?<p>click on image to delete</p>:<></>}
-          {previewPhoto}
+          <div className="photoDisplay">
+            {((photo.length || newurl.length) && previewPhoto) ? <div>click on image to delete</div> : <></>}
+            {previewPhoto}
+          </div>
 
           {/* {photo && photo.map((item) => { return <img src={item} /> })} */}
         </div>

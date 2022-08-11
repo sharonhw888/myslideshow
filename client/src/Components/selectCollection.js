@@ -37,7 +37,7 @@ const SelectCollection = (props) => {
   return (
     <>
       <div className="selectCollection">
-        <label>select or create collection</label>
+        <label>Select/Create a collection</label>
         <select onChange={handleChange}>
           <option value="create">create new</option>
           {props.allCol && props.allCol.map((item) => {

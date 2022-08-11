@@ -20,7 +20,7 @@ var GalleryDisplay = (props) => {
     num += 10;
     if (num === 100) {
       clearInterval(slideInterval);
-      setCurrentSlide(currentSlide === props.allURL.length - 1 ? 0 : currentSlide + 1);
+      setCurrentSlide(currentSlide >= props.allURL.length - 1 ? 0 : currentSlide + 1);
     }
     setDone(num);
   };
@@ -55,19 +55,21 @@ var GalleryDisplay = (props) => {
 
   return (
     <div className="slider">
-      <div onClick={preSlide}>&#8592;</div>
-      {props.allURL && props.allURL.map((item, index) => {
-        return (
-          <div className={index === currentSlide ? 'slide current' : 'slide'} key={index}>
-            {index === currentSlide &&
-              autoScroll?<img src={item} />:<div className="empty">pause don't peek</div>
-              // <img src={item} />
-            }
-          </div>
-        )
-      })}
-      <div onClick={() => { setCurrentSlide(currentSlide === props.allURL.length - 1 ? 0 : currentSlide + 1); }}>&#8594;</div>
-      <button onClick={() => { setAutoScroll(!autoScroll) }}>{autoScroll ? "⏸️":"▶️" }</button>
+      <div className="preSymbol" onClick={preSlide}>&#8592;</div>
+      <div className="mainDisplay">
+        {props.allURL && props.allURL.map((item, index) => {
+          return (
+            <div className={index === currentSlide ? 'slide current' : 'slide'} key={index}>
+              {index === currentSlide &&
+                autoScroll?<img class="bigDisplay" src={item} />:<div className="empty">pause don't peek</div>
+                // <img src={item} />
+              }
+            </div>
+          )
+        })}
+      </div>
+      <div className="nextSymbol" onClick={() => { setCurrentSlide(currentSlide === props.allURL.length - 1 ? 0 : currentSlide + 1); }}>&#8594;</div>
+      <button className="play" onClick={() => { setAutoScroll(!autoScroll) }}>{autoScroll ? "⏸️":"▶️" }</button>
       <Progress done={done} />
 
     </div>

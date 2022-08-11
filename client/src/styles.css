@@ -1,13 +1,12 @@
 h1 {
-  color: white;
-  background-color: black;
+  color: black;
 }
 
-img{
+/* img {
   height: 20vw;
-}
+} */
 
-.slide{
+.slide {
   position: relative;
   top: 0;
   left: 0;
@@ -18,18 +17,20 @@ img{
   transition: all 0.5s ease;
 }
 
-.current{
+.current {
   opacity: 1;
   transform: translateX(0);
 }
 
-.progress{
+.progress {
   background-color: pink;
   border-radius: 20px;
+  margin: 10px;
   height: 30px;
-  width: 300px;
+  width: 100%;
 }
-.progress-done{
+
+.progress-done {
   background-color: blue;
   border-radius: 20px;
   display: flex;
@@ -39,9 +40,10 @@ img{
   height: 100%;
   width: 100px;
 }
-img{
+
+/* img {
   height: 20vw;
-}
+} */
 
 
 .modalBackground {
@@ -100,14 +102,18 @@ img{
 }
 
 .modalContainer .body {
-  flex: 50%;
+  flex: 80%;
   display: flex;
   justify-content: space-evenly;
   align-items: start;
-  margin-left: inherit;
+  margin-left: 5px;
   font-size: 20px;
-  text-align: center;
+  /* text-align: center; */
   flex-direction: column;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 2fr 4fr 5fr;
 }
 
 label input {
@@ -117,19 +123,184 @@ label input {
   align-items: center;
   width: -webkit-fill-available;
 }
+
 .modalContainer .footer {
   font-size: 10px;
-  flex: 20%;
+  flex: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.prePhoto{
-  height:10vw;
-  display: inline-flex;
+
+
+.slider {
+  z-index: 2;
+}
+
+.smallfig {
+  height: 30px;
+}
+
+
+/************start css mod************/
+.username {
+  color: inherit;
+  background: inherit;
+  padding: inherit;
+  font: inherit;
+  border: none;
+  width: 10ch;
+  /* text-align: center; */
+}
+
+.selectCollection{
+  display: inline-block;
 }
 
 .slider{
-  z-index: 2;
+  align-items: center;
+  justify-content: center;
+
+  display: grid;
+
+  grid-template-columns: 1fr 10fr 1fr;
+  grid-template-rows: 1fr;
+
+}
+
+.preSymbol{
+  grid-column: 1/span1;
+  grid-row: 1/span1;
+}
+.mainDisplay{
+  height: 50vh;
+  align-items: center;
+  justify-content: center;
+  grid-column: 2;
+  grid-row: 1/span1;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+.nextSymbol{
+  grid-column: 3/span1;
+  grid-row: 1/span1;
+}
+
+/* .img{
+  align-items: center;
+  justify-content: center;
+} */
+.slide{
+  position: relative;
+  grid-column: 1/span1;
+  grid-row: 1/span1;
+  /* display: flexbox; */
+  height: 100%;
+}
+.play{
+  z-index: 100;
+  background: none;
+  border: none;
+}
+
+div .bigDisplay{
+  position: absolute;
+  display: flex;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.current .empty{
+  position: absolute;
+  display: flex;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 100%;
+}
+.prePhoto {
+  height: 10vw;
+  display: inline-flex;
+  padding: 2px;
+}
+.colName{
+  position: relative;
+  grid-column: 1/span1;
+  grid-row: 1/span1;
+}
+.addPhoto{
+  position: relative;
+  grid-column: 1/span1;
+  grid-row: 2/span1;
+}
+.photoDisplay{
+  position: relative;
+  grid-column: 1/span1;
+  grid-row: 3/span1;
+}
+
+/* .addPhoto .addTitle{
+  grid-column: 1/span3;
+  grid-row: 1/span1;
+}
+
+.addPhoto .addText{
+  grid-column: 1/span1;
+  grid-row: 2/span1;
+}
+.addPhoto .addImg{
+  grid-column: 2/span1;
+  grid-row: 2/span1;
+}
+.addPhoto .addButton{
+  grid-column: 3/span1;
+  grid-row: 2/span1;
+}
+
+.addPhoto .addText2{
+  grid-column: 1/span1;
+  grid-row: 3/span1;
+}
+.addPhoto .addImg2{
+  grid-column: 2/span1;
+  grid-row: 3/span1;
+}
+.addPhoto .addButton2{
+  grid-column: 3/span1;
+  grid-row: 3/span1;
+} */
+
+.addOn{
+  display: flex;
+}
+.addText{
+  position: absolute;
+}
+.addImg{
+  position: relative;
+  left:120px;
+  width: 200px;
+}
+.addButton{
+  position: relative;
+  left: 120px;
+}
+
+.photoDisplay img{
+  padding:2px;
+}
+.modImg{
+  position: relative;
+  left:0px;
+}
+.addPhoto button{
+  display: block;
 }

@@ -44,8 +44,14 @@ mongoose
     return Picture.find().exec().then((result)=>{res.json(result)});
   };
 
+  const remove=(req,res)=>{
+    console.log(req.params)
+    return Picture.deleteOne({ name: req.params.colName}).then(()=>{res.sendStatus(200)}).catch((err)=>{console.log(err)});
+  };
+
   module.exports = {
     findAll,
     find,
-    create
+    create,
+    remove
   };
