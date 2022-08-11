@@ -2,28 +2,17 @@ import React, { useState } from 'react';
 import axios from 'axios';
 var cloudName = 'dls2rxfqj';
 var presetName = 'ap4g9ume';
-import Modal from './modal2.js';
+import ModModal from './modModal.js';
 
-const SelectCollection = (props) => {
+const ManageCollection = (props) => {
 
-  var [selected, setSelect] = React.useState('default');
+  var [selected, setSelect] = React.useState();
   var [show, setShow] = React.useState(false);
 
   var handleChange = (e) => {
-    if (e.target.value === 'create') {
-      setShow(true)
-      setSelect('create')
-    }else{
-      setSelect(e.target.value)
-      props.select(e.target.value)
-    }
+    setSelect(e.target.value);
   };
 
-  var handleSubmit=(newName)=>{
-    setShow(false);
-    setSelect(newName);
-    props.select(newName);
-  };
 
   var handleClose=(newName)=>{
     if(newName){
@@ -37,12 +26,11 @@ const SelectCollection = (props) => {
   return (
     <>
       <div className="selectCollection">
-        <label>Select/Create a collection</label>
+        <label>manage collection</label>
         <select onChange={handleChange}>
-          <option value="create">create new</option>
           {props.allCol && props.allCol.map((item) => {
-            if (item === selected) {
-              return <option value={item} selected>{item}</option>
+            if (item === 'default') {
+              return <option value={item} selected disabled hidden>select one</option>
             } else {
               return <option value={item}>{item}</option>
             }
@@ -51,9 +39,9 @@ const SelectCollection = (props) => {
 
         {/* {show && <Modal submitForm={handleSubmit} closeModal={()=>{setSelect('default');setShow(false)}}/>} */}
       </div>
-      {show && <Modal closeModal={handleClose}/>}
+      {show && <ModModal colName={selected} closeModal={handleClose}/>}
     </>
   )
 }
 
-export default SelectCollection
+export default ManageCollection
