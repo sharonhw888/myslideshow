@@ -4,7 +4,7 @@ import axios from "axios";
 
 import SelectCollection from "./Components/selectCollection.js";
 import ModModal from "./Components/modModal.js";
-import GalleryDisplay from "./Components/galleryDisplay.js";
+import GalleryDisplay from "./Components/galleryDisplay2.js";
 
 class App extends React.Component {
   constructor(props) {
