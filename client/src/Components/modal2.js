@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-
 var Modal = (props) => {
   var [name, setName] = React.useState();
   var [photo, setPhoto] = React.useState([]);
@@ -38,7 +37,6 @@ var Modal = (props) => {
 
 
   var handleSubmit = (e) => {
-    // props.closeModal(false)
     var cloudPost = [];
     photo.forEach((item) => {
       var formData = new FormData();
@@ -46,17 +44,14 @@ var Modal = (props) => {
       formData.append("upload_preset", "ap4g9ume")
 
       cloudPost.push(axios.post("https://api.cloudinary.com/v1_1/dls2rxfqj/image/upload", formData))
-
     })
     Promise.all(cloudPost).then((resProm) => {
       var link = resProm.map((item) => {
         return item.data.url;
       })
       link = link.concat(newurl);
-      console.log(name)
-      axios.post(`/gallery/${name}`, link).then((res) => { console.log('res from database', res) })
+      axios.post(`/gallery/${name}`, link).then((res) => { console.log('collection added', res) })
     }).then(() => {
-      console.log(e.target.value)
       props.closeModal(e.target.value);
     })
   }
@@ -73,7 +68,7 @@ var Modal = (props) => {
             <input value={name} placeholder="Collection name" onChange={(e) => { setName(e.target.value) }} required></input>
           </div>
           <div className="addPhoto">
-            <div class="addTitle">Photos: click on "add" to add picture; click on "preview" to preview before submission</div>
+            <div class="addTitle">Photos: click on "add" to add picture</div>
             <div className="addOn">
               <div className="addText">upload picture</div>
               <input className="addImg" type='file' multiple />
@@ -93,7 +88,7 @@ var Modal = (props) => {
           </div>
 
           <div className="photoDisplay">
-            {((photo.length || newurl.length) && previewPhoto) ? <div>click on image to delete</div> : <></>}
+            {(photo.length || newurl.length) ? <div>click on image to delete</div> : <></>}
             {/* {(photo.length || newurl.length) && previewPhoto} */}
             {newurl && newurl.map((item, index) => {
               return <img class="prePhoto" data={'u' + index} src={item} onClick={cancelPhoto} />

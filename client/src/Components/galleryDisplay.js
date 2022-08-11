@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import axios from 'axios';
 import Progress from './progress.js';
-var cloudName = 'dls2rxfqj';
-var presetName = 'ap4g9ume';
+
 
 var GalleryDisplay = (props) => {
 
   const [currentSlide, setCurrentSlide] = React.useState(0);
   var [done, setDone] = React.useState(0);
   var [autoScroll, setAutoScroll] = React.useState(false);
-  // const autoScroll = true;
+
   let intervalTime = props.dt / 10;
 
   let slideInterval;
@@ -37,7 +35,7 @@ var GalleryDisplay = (props) => {
   //   setCurrentSlide(0)
   // }, []);
   React.useEffect(() => {
-    console.log('currentslide chnage')
+    console.log('currentslide change')
     if (autoScroll) {
       setDone(0)
       auto();
@@ -61,8 +59,7 @@ var GalleryDisplay = (props) => {
           return (
             <div className={index === currentSlide ? 'slide current' : 'slide'} key={index}>
               {index === currentSlide &&
-                autoScroll?<img class="bigDisplay" src={item} />:<div className="empty">pause don't peek</div>
-                // <img src={item} />
+                autoScroll?<img class="bigDisplay" src={item} />:<div className="empty">pause. don't peek</div>
               }
             </div>
           )

@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
-// import Modal from 'react-bootstrap/Modal';
+import React from 'react';
 import axios from 'axios';
-var cloudName = 'dls2rxfqj';
-
 
 var ModModal = (props) => {
   var [selected, setSelect] = React.useState('default');
@@ -10,7 +7,6 @@ var ModModal = (props) => {
   var [photo, setPhoto] = React.useState([]);
   var [previewPhoto, setPreviewPhoto] = React.useState();
   var [newurl, setNewurl] = React.useState([]);
-
 
   var previewLocal = () => {
     setPreviewPhoto(
@@ -44,7 +40,6 @@ var ModModal = (props) => {
     selected = e.target.value;
     setSelect(selected);
     axios.get(`/gallery/${selected}`).then((res) => {
-      console.log(res.data[0].url);
       url = res.data[0].url;
       setURL(res.data[0].url);
     });
@@ -52,7 +47,6 @@ var ModModal = (props) => {
 
   var cancelPhoto = (e) => {
     var ind = e.target.attributes.data.value.slice(1);
-    console.log(e.target.attributes.data.value)
     if (e.target.attributes.data.value[0] === 'm') {
       url.splice(ind, 1);
       viewURL();
@@ -84,9 +78,9 @@ var ModModal = (props) => {
       link = link.concat(newurl, url);
       console.log(link)
       if (link.length === 0) {
-        axios.delete(`/gallery/${selected}`).then((res) => { console.log('I think it is deleted maybe', res) })
+        axios.delete(`/gallery/${selected}`).then((res) => { console.log('collection deleted',res) })
       } else {
-        axios.post(`/gallery/${selected}`, link).then((res) => { console.log('res from database', res) });
+        axios.post(`/gallery/${selected}`, link).then((res) => { console.log('collection modified',res) });
       }
     }).then(() => {
 

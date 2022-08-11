@@ -1,6 +1,7 @@
 
 import React from "react";
 import axios from "axios";
+
 import SelectCollection from "./Components/selectCollection.js";
 import ModModal from "./Components/modModal.js";
 import GalleryDisplay from "./Components/galleryDisplay.js";
@@ -20,7 +21,7 @@ class App extends React.Component {
     colName = colName || 'default';
 
     axios.get(`/gallery/${colName}`).then((res) => {
-      console.log(res.data[0].url);
+      // console.log(res.data[0].url);
       this.setState({ url: res.data[0].url });
     });
     axios.get('/all').then((res) => {

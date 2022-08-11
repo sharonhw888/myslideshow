@@ -1,7 +1,4 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-var cloudName = 'dls2rxfqj';
-var presetName = 'ap4g9ume';
+import React from 'react';
 import Modal from './modal2.js';
 
 const SelectCollection = (props) => {
@@ -17,12 +14,6 @@ const SelectCollection = (props) => {
       setSelect(e.target.value)
       props.select(e.target.value)
     }
-  };
-
-  var handleSubmit=(newName)=>{
-    setShow(false);
-    setSelect(newName);
-    props.select(newName);
   };
 
   var handleClose=(newName)=>{
@@ -48,8 +39,6 @@ const SelectCollection = (props) => {
             }
           })}
         </select>
-
-        {/* {show && <Modal submitForm={handleSubmit} closeModal={()=>{setSelect('default');setShow(false)}}/>} */}
       </div>
       {show && <Modal closeModal={handleClose}/>}
     </>
