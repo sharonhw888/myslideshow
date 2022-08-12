@@ -51,6 +51,16 @@ var GalleryDisplay = (props) => {
   }, [currentSlide])
 
   React.useEffect(() => {
+    console.log('collection change')
+    clearInterval(intervalID);
+    setCurrentSlide(0)
+    setAutoScroll(false);
+    if (autoScroll) {
+      auto();
+    }
+  }, [props.allURL])
+
+  React.useEffect(() => {
     clearInterval(intervalID)
     console.log(num)
     if(autoScroll){
