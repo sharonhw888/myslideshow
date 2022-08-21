@@ -63,7 +63,10 @@ var ModModal = (props) => {
   var handleSubmit = () => {
     // props.closeModal(false)
     var cloudPost = [];
+    console.log(photo)
     photo.forEach((item) => {
+      console.log('item looks like this')
+      console.log(item)
       var formData = new FormData();
       formData.append("file", item)
       formData.append("upload_preset", "ap4g9ume")
