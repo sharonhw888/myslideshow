@@ -1,6 +1,6 @@
 # myslideshow
 
-Create a automatic slideshow with the user created collections. This app is built to help users to practice their sketching skills with time limit. Users are allowed to select, create, or modify the picture collections and adjust the duration of each picture. Users can also pause and resume the slideshow.
+Create a automatic slideshow with the user created collections. This app is built to help users to practice their sketching skills with time limit. Users are allowed to select, create, or modify the picture collections and adjust the duration of each picture. Users can also pause and resume the slideshow. Users can also skip a picture in a collection by pressing the arrow to go to the next picture.
 
 #### screenshots
 
